@@ -1,6 +1,7 @@
 // components/CropSuggestionForm.tsx
 "use client";
 import { useState } from "react";
+import NavBar from "@/components/navBar";
 
 interface Suggestion {
   cropName: string;
@@ -55,28 +56,33 @@ export default function CropSuggestionForm() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-xl">
-      <h1 className="text-2xl font-bold mb-6 text-center">🌾 FarmPulse Crop Suggestion</h1>
+    <>
+    <NavBar />
+    <div className=" py-24 flex items-center justify-center" >
+    <div className="max-w-6xl w-full  mx-auto p-6 bg-white shadow-md rounded-xl">
+      <h1 className="text-3xl text-lime-500 font-bold mb-6 text-center">FarmPulse Crop Suggestion</h1>
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 justify-center items-center">
         {Object.entries(form).map(([key, value]) => (
           <input
             key={key}
             name={key}
-            placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+            placeholder={key.charAt(0).toUpperCase() + key.slice(1)} style={{width: "50%"}}
             value={value}
             onChange={handleChange}
             className="p-3 border border-gray-300 rounded"
             required
           />
         ))}
+        <div>
         <button
           type="submit"
           disabled={loading}
-          className="md:col-span-2 bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          className="md:col-span-2 bg-lime-500 text-white px-4 py-2 rounded hover:bg-lime-600"
         >
           {loading ? "Loading..." : "Get Crop Suggestions"}
         </button>
+        </div>
       </form>
 
       {error && <p className="text-red-600 mt-4">{error}</p>}
@@ -96,5 +102,7 @@ export default function CropSuggestionForm() {
         </div>
       )}
     </div>
+    </div>
+    </>
   );
 }
