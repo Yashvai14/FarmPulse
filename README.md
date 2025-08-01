@@ -34,3 +34,14 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+| Purpose       | Color Name        | Hex Code  | Usage                             |
+| ------------- | ----------------- | --------- | --------------------------------- |
+| 🌿 Primary    | Forest Green      | `#2F855A` | Buttons, highlights, main accents |
+| 🏞️ Secondary | Sage Light Green  | `#D9F99D` | Backgrounds, soft sections        |
+| ☀️ Accent     | Harvest Yellow    | `#FBBF24` | Call-to-actions, badges, alerts   |
+| ☁️ Base       | Off-White         | `#F9FAFB` | Backgrounds                       |
+| 🪵 Text/Dark  | Charcoal Gray     | `#1F2937` | Headings, primary text            |
+| 💬 Subtext    | Slate Gray        | `#6B7280` | Descriptions, subtext             |
+| 📱 Outline    | Light Border Gray | `#E5E7EB` | Card borders, dividers            |
