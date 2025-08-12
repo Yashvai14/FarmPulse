@@ -119,7 +119,7 @@ export default function CropSuggestionForm() {
                     'bg-red-100 text-red-800'
                   }`}>{sug.profitability}</span></p>
                   <p><strong>Market Value:</strong> {sug.marketValue}</p>
-                  <p><strong>Risk Level:</strong> <span className={`px-2 py-1 rounded text-xs ${
+                  <p><strong>Risk Level:</strong> <span className={\`px-2 py-1 rounded text-xs ${
                     sug.riskLevel === 'Low' ? 'bg-green-100 text-green-800' :
                     sug.riskLevel === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
                     'bg-red-100 text-red-800'
