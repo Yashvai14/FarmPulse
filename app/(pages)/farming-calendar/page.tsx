@@ -1,11 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Calendar } from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import dynamic from 'next/dynamic';
 import { Bell, Leaf, Droplet, CalendarDays } from 'lucide-react';
 import { format } from 'date-fns';
 import NavBar from '@/components/navBar';
+import { Button } from '@/components/ui/button';
+
+// Dynamically import Calendar to avoid SSR issues
+const Calendar = dynamic(() => import('react-calendar').then(mod => ({ default: mod.Calendar })), {
+  ssr: false,
+  loading: () => <div className="h-64 bg-gray-100 rounded animate-pulse"></div>
+});
 
 const dummyCropCycles = {
   wheat: [
@@ -39,14 +45,14 @@ export default function FarmingCalendarPage() {
   return (
     <>
     <NavBar />
-    <div className="p-6 max-w-5xl mx-auto">
-      <h1 className="text-6xl text-lime-500 font-bold mb-4 text-center"> Farming Calendar & Reminders</h1>
+    <div className="p-4 md:p-6 max-w-5xl mx-auto">
+      <h1 className="text-3xl md:text-6xl text-lime-500 font-bold mb-4 text-center">Farming Calendar & Reminders</h1>
 
       <div className="mb-6 flex flex-col md:flex-row items-center justify-between">
         <div className="mb-4 md:mb-0">
-          <label className="text-xl m-5 font-semibold mr-2">Select Crop:</label>
+          <label className="text-lg md:text-xl mb-2 md:mb-0 md:mr-2 font-semibold block md:inline">Select Crop:</label>
           <select
-            className="border px-3 py-1 rounded"
+            className="border px-3 py-2 rounded-md w-full md:w-auto"
             onChange={handleCropChange}
             value={crop}
           >
@@ -56,18 +62,26 @@ export default function FarmingCalendarPage() {
         </div>
 
         <div>
-          <p className="text-gray-600 text-sm">Today's Date: {format(new Date(), 'PPP')}</p>
+          <p className="text-gray-600 text-xs md:text-sm text-center md:text-right">
+            Today's Date: {format(new Date(), 'PPP')}
+          </p>
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white shadow-md p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-3 text-green-600">📅 Calendar View</h2>
-          <Calendar onChange={setValue} value={value} />
+          <h2 className="text-lg md:text-xl font-semibold mb-3 text-green-600">📅 Calendar View</h2>
+          <div className="calendar-container">
+            <Calendar 
+              onChange={setValue} 
+              value={value}
+              className="w-full"
+            />
+          </div>
         </div>
 
         <div className="bg-white shadow-md p-4 rounded-xl">
-          <h2 className="text-xl font-semibold mb-3 text-green-600">🔔 Upcoming Tasks</h2>
+          <h2 className="text-lg md:text-xl font-semibold mb-3 text-green-600">🔔 Upcoming Tasks</h2>
           <ul className="space-y-4">
             {reminders.map((r, idx) => (
               <li
@@ -82,7 +96,7 @@ export default function FarmingCalendarPage() {
                   <span className="text-green-600">{r.icon}</span>
                   <span className="font-medium">{r.task}</span>
                 </div>
-                <span className="text-gray-600 text-xs">{format(new Date(r.date), 'PPP')}</span>
+                <span className="text-gray-600 text-xs hidden md:block">{format(new Date(r.date), 'MMM dd')}</span>
               </li>
             ))}
           </ul>

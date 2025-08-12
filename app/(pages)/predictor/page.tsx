@@ -2,6 +2,9 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
+import NavBar from '@/components/navBar';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export default function PredictorPage() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -37,50 +40,72 @@ export default function PredictorPage() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">🌿 Crop Disease Predictor</h2>
+    <>
+      <NavBar />
+      <div className="p-4 md:p-6 max-w-4xl mx-auto">
+        <h2 className="text-2xl md:text-3xl text-lime-500 font-bold mb-6 text-center">🌿 Crop Disease Predictor</h2>
       
-      <input type="file" accept="image/*" onChange={handleImageChange} className="mb-4" />
+        <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Upload Plant Image
+            </label>
+            <Input 
+              type="file" 
+              accept="image/*" 
+              onChange={handleImageChange} 
+              className="w-full"
+            />
+          </div>
 
-      {preview && (
-        <Image
-          src={preview}
-          alt="Uploaded"
-          width={400}
-          height={300}
-          className="rounded-lg mb-4"
-        />
-      )}
+          {preview && (
+            <div className="mb-6 flex justify-center">
+              <Image
+                src={preview}
+                alt="Uploaded"
+                width={400}
+                height={300}
+                className="rounded-lg max-w-full h-auto"
+              />
+            </div>
+          )}
 
-      <div className="flex gap-4 items-center mb-4">
-        <label className="font-semibold">🌐 Select Language:</label>
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          className="border px-2 py-1 rounded"
-        >
-          <option value="en">English</option>
-          <option value="hi">Hindi</option>
-          <option value="mr">Marathi</option>
-          <option value="te">Telugu</option>
-        </select>
-      </div>
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center mb-6">
+            <label className="font-semibold text-sm md:text-base">🌐 Select Language:</label>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="border px-3 py-2 rounded-md w-full md:w-auto"
+            >
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="mr">Marathi</option>
+              <option value="te">Telugu</option>
+            </select>
+          </div>
 
-      <button
-        onClick={handlePredict}
-        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-        disabled={loading}
-      >
-        {loading ? 'Analyzing...' : 'Predict Disease'}
-      </button>
+          <div className="flex justify-center mb-6">
+            <Button
+              onClick={handlePredict}
+              disabled={loading || !selectedImage}
+              className="w-full md:w-auto"
+            >
+              {loading ? 'Analyzing...' : 'Predict Disease'}
+            </Button>
+          </div>
 
-      {result && (
-        <div className="mt-6 bg-gray-100 p-4 rounded-lg shadow">
-          <p><strong>Disease:</strong> {result.disease}</p>
-          <p><strong>Confidence:</strong> {result.confidence}%</p>
-          <p><strong>Remedy:</strong> {result.remedy}</p>
+          {result && (
+            <div className="bg-gray-50 p-4 md:p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold text-green-700 mb-3">Analysis Results</h3>
+              <div className="space-y-2">
+                <p><strong>Disease:</strong> <span className="text-red-600">{result.disease}</span></p>
+                <p><strong>Confidence:</strong> <span className="text-blue-600">{result.confidence}%</span></p>
+                <p><strong>Remedy:</strong> <span className="text-green-600">{result.remedy}</span></p>
+              </div>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

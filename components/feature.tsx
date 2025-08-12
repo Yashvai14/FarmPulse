@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react";
+import { Button } from "./ui/button";
 
 const features = [
   {
@@ -29,36 +30,41 @@ export default function FeaturesSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="w-full py-32 bg-white" id="features">
-      <div className="max-w-[1200px] mx-auto" style={{ width: "1200px" }}>
-        <h2 className="text-6xl font-bold text-lime-500 mb-4">Why Choose FarmPulse?</h2>
-        <p className="text-gray-600 text-xl mb-20 max-w-2xl">
+    <section className="w-full py-16 md:py-32 bg-white px-4" id="features">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-lime-500 mb-4 text-center lg:text-left">
+          Why Choose FarmPulse?
+        </h2>
+        <p className="text-gray-600 text-base md:text-lg lg:text-xl mb-12 md:mb-20 max-w-2xl text-center lg:text-left">
           Tap into the pulse of your land with AI-driven insights tailored for farmers.
         </p>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-8 md:space-y-0 md:space-x-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start space-y-8 lg:space-y-0 lg:space-x-8">
           {/* Feature titles */}
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-3 md:space-y-4 w-full lg:w-auto">
             {features.map((feature, index) => (
-              <button
+              <Button
                 key={index}
-                className={` p-5   rounded-xl text-xl transition-all duration-300 ${
+                variant={activeIndex === index ? "default" : "outline"}
+                className={`p-3 md:p-5 rounded-xl text-sm md:text-lg lg:text-xl transition-all duration-300 text-left justify-start h-auto whitespace-normal ${
                   activeIndex === index
-                    ? "bg-lime-500 text-white  border-lime-500"
-                    : "bg-gray-100 text-gray-800  hover:bg-gray-200"
+                    ? ""
+                    : "hover:bg-gray-50"
                 }`}
                 onClick={() => setActiveIndex(index)}
               >
                 {feature.title}
-              </button>
+              </Button>
             ))}
           </div>
 
           {/* Feature description */}
-          <div className="bg-gray-50 p-8 h-[400px] w-[800px] rounded-xl border border-gray-200 shadow-md">
-            <h3 className="text-3xl font-semibold text-lime-500 mb-5">
+          <div className="bg-gray-50 p-4 md:p-6 lg:p-8 min-h-[300px] md:min-h-[400px] w-full lg:max-w-2xl rounded-xl border border-gray-200 shadow-md">
+            <h3 className="text-xl md:text-2xl lg:text-3xl font-semibold text-lime-500 mb-3 md:mb-5">
               {features[activeIndex].title}
             </h3>
-            <p className="text-gray-700 text-base">{features[activeIndex].description}</p>
+            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
+              {features[activeIndex].description}
+            </p>
           </div>
         </div>
       </div>

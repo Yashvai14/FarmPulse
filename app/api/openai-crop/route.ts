@@ -1,13 +1,48 @@
 // app/api/openai-crop/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import { supabase } from '@/lib/supabase'
 
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const body = await req.json();
 
-    const prompt = `...`; // Your prompt here
+    const prompt = `Based on the following farming details, provide 3 crop suggestions in JSON format:
+    
+    Location: ${body.location}
+    Soil Type: ${body.soil}
+    Planting Month: ${body.month}
+    Water Source: ${body.waterSource}
+    Experience Level: ${body.experience}
+    Budget: ${body.budget}
+    Preferred Crop Type: ${body.cropType}
+    
+    Please respond with a JSON array of exactly 3 objects, each containing:
+    - cropName: string
+    - profitability: string (High/Medium/Low)
+    - marketValue: string (price range)
+    - riskLevel: string (Low/Medium/High)
+    - reasoning: string (brief explanation)
+    
+    Example format:
+    [
+      {
+        "cropName": "Wheat",
+        "profitability": "High",
+        "marketValue": "₹2000-2500 per quintal",
+        "riskLevel": "Low",
+        "reasoning": "Suitable for your soil and climate conditions"
+      }
+    ]`;
 
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
@@ -39,6 +74,24 @@ export async function POST(req: NextRequest) {
 
     try {
       const parsed = JSON.parse(text);
+      
+      // Save to database
+      await supabase
+        .from('crop_suggestions')
+        .insert([
+          {
+            user_id: session.user.id,
+            location: body.location,
+            soil_type: body.soil,
+            month: body.month,
+            water_source: body.waterSource,
+            experience: body.experience,
+            budget: body.budget,
+            crop_type: body.cropType,
+            suggestions: parsed
+          }
+        ])
+      
       return NextResponse.json({ result: parsed });
     } catch (e) {
       console.error("❌ JSON parse failed:", text);
