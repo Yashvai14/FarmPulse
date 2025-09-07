@@ -1,0 +1,22 @@
+{
+  "en": {
+    "Leaf Blight": "Apply copper fungicide and remove infected leaves.",
+    "Powdery Mildew": "Use neem oil or sulfur-based sprays.",
+    "Rust": "Apply appropriate fungicide and maintain crop spacing."
+  },
+  "hi": {
+    "Leaf Blight": "कॉपर फफूंदनाशक का छिड़काव करें और संक्रमित पत्तियाँ हटाएं।",
+    "Powdery Mildew": "नीम का तेल या सल्फर स्प्रे का उपयोग करें।",
+    "Rust": "सही फफूंदनाशक का उपयोग करें और फसल में दूरी बनाए रखें।"
+  },
+  "mr": {
+    "Leaf Blight": "कॉपर फंगीसाइड वापरा आणि संक्रमित पाने काढा.",
+    "Powdery Mildew": "निंबोळी तेल किंवा सल्फर स्प्रे वापरा.",
+    "Rust": "योग्य फंगीसाइड वापरा आणि पीकांची योग्य अंतर ठेवा."
+  },
+  "te": {
+    "Leaf Blight": "కాపర్ ఫంగిసైడ్‌ను ఉపయోగించండి మరియు సోకిన ఆకులను తీసివేయండి.",
+    "Powdery Mildew": "నీమ ఆయిల్ లేదా సల్ఫర్ స్ప్రేను ఉపయోగించండి.",
+    "Rust": "సరైన ఫంగిసైడ్ ఉపయోగించి మొక్కల మధ్య దూరాన్ని పాటించండి."
+  }
+}

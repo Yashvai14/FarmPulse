@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgriPulse",
+  title: "FarmPulse",
   description: "A platform for farmers to connect and share knowledge",
 };
 

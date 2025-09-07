@@ -1,85 +1,124 @@
 'use client';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import NavBar from "@/components/navBar";
 
-import React, { useState } from 'react';
-import NavBar from '@/components/navBar';
+export default function Home() {
+  const [city, setCity] = useState("Nagpur,IN"); // default city
+  const [weather, setWeather] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-export default function WeatherPage() {
-  const [location, setLocation] = useState('');
-  const [weatherData, setWeatherData] = useState({
-    location: 'Nagpur, Maharashtra',
-    temp: '31°C',
-    condition: 'Partly Cloudy',
-    humidity: '45%',
-    advice: 'Ideal for irrigation',
-  });
+  const API_KEY = "969319db1fb8e194b5d514f495cbdb5d"; // 🔑 Replace with your OpenWeatherMap key
 
-  const forecast = [
-    { day: 'Mon', temp: '30°C', status: 'Sunny' },
-    { day: 'Tue', temp: '32°C', status: 'Cloudy' },
-    { day: 'Wed', temp: '29°C', status: 'Rain' },
-    { day: 'Thu', temp: '31°C', status: 'Sunny' },
-    { day: 'Fri', temp: '30°C', status: 'Cloudy' },
-  ];
+  async function fetchWeather(selectedCity: string) {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await axios.get(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${selectedCity}&appid=${API_KEY}&units=metric`
+      );
+      setWeather(res.data);
+    } catch (err) {
+      setError("City not found. Try again!");
+      setWeather(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // fetch default city on load
+  useEffect(() => {
+    fetchWeather(city);
+  }, []);
 
   const handleSearch = () => {
-    // In real app, call API here and update state
-    console.log(`Fetching weather for ${location}...`);
-    setWeatherData((prev) => ({
-      ...prev,
-      location: location || 'Nagpur, Maharashtra',
-    }));
+    if (city.trim() !== "") {
+      fetchWeather(city);
+    }
   };
 
   return (
-    <main className='bg-gradient-to-br from-lime-50 to-green-50 min-h-screen'>
-        <NavBar />
-      <section className="max-w-5xl mx-auto text-center py-24">
-        <h1 className="text-6xl mb-10 font-bold text-lime-500">Live Weather Forecast</h1>
-        <p className="mt-4 text-gray-600 text-lg max-w-xl mx-auto">
-          Stay prepared with accurate and region-specific weather updates to protect your yield.
-        </p>
+    <>
+    <NavBar />
+    <div className=" flex flex-col items-center justify-center p-2">
+      {/* Search bar */}
+      <div className="flex gap-2 mb-6 w-full max-w-md">
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter city name..."
+          className="flex-1 p-3 rounded-lg border shadow-sm focus:outline-none focus:ring-2 focus:ring-lime-400"
+        />
+        <button
+          onClick={handleSearch}
+          className="px-4 py-2 bg-lime-500 text-white rounded-lg shadow hover:bg-lime-600"
+        >
+          Search
+        </button>
+      </div>
 
-        {/* Location Search */}
-        <div className="mt-8 flex justify-center gap-4">
-          <input
-            type="text"
-            placeholder="Enter your location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="border border-gray-300 p-2 rounded-md w-64"
-          />
-          <button
-            onClick={handleSearch}
-            className="bg-lime-500 text-white px-4 py-2 rounded-md hover:bg-lime-600 transition"
-          >
-            Get Weather
-          </button>
-        </div>
-      </section>
+      {/* Loading/Error States */}
+      {loading && <p className="text-center">Loading weather...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
 
-      {/* Weather Card */}
-      <section className="max-w-5xl mx-auto mb-10">
-        <div className="bg-white shadow-md rounded-xl p-6 mb-6 text-center">
-          <h2 className="text-2xl font-semibold text-green-700 mb-2">{weatherData.location}</h2>
-          <p className="text-gray-700 text-lg">Current Temperature: {weatherData.temp}</p>
-          <p className="text-gray-600">{weatherData.condition}, Humidity: {weatherData.humidity}</p>
-          <p className="mt-2 text-sm text-blue-700 font-medium">Advice: {weatherData.advice}</p>
-        </div>
-
-        {/* Forecast Timeline */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {forecast.map((item, index) => (
-            <div
-              key={index}
-              className="bg-green-100 rounded-lg text-center p-4 shadow hover:shadow-lg transition"
-            >
-              <p className="font-semibold text-green-800">{item.day}</p>
-              <p className="text-lg text-gray-700">{item.temp}</p>
-              <p className="text-sm text-gray-500">{item.status}</p>
+      {/* Weather Data */}
+      {weather && !loading && (
+        <div className="max-w-5xl w-full bg-white rounded-2xl shadow-xl p-6 grid grid-cols-2 gap-6">
+          {/* Left Section */}
+          <div className="text-center flex flex-col justify-center">
+            <h2 className="text-8xl text-lime-500 font-bold">
+              {Math.round(weather.list[0].main.temp)}°
+            </h2>
+            <p className="text-2xl mt-2">{weather.list[0].weather[0].main}</p>
+            <div className="flex justify-center mt-4 space-x-4 text-gray-600">
+              <p>💨 {weather.list[0].wind.speed} m/s</p>
+              <p>💧 {weather.list[0].main.humidity}%</p>
             </div>
-          ))}
+          </div>
+
+          {/* Right Section */}
+          <div>
+            <h3 className="text-lg font-semibold">Weather in {weather.city.name}</h3>
+            <p className="text-sm mb-2">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+            <p className="text-xl text-lime-500">
+              {Math.round(weather.list[0].main.temp)}° (Feels like {Math.round(weather.list[0].main.feels_like)}°)
+            </p>
+            <p className="text-gray-600">{weather.list[0].weather[0].main}</p>
+
+            <h4 className="mt-6  font-semibold">Hourly Forecast</h4>
+            <div className="grid grid-cols-3 gap-2 mt-2">
+              {weather.list.slice(0, 6).map((h: any, i: number) => (
+                <div key={i} className="bg-gray-100 p-3 text-lime-500 rounded-lg text-center">
+                  <p className="font-semibold">{new Date(h.dt * 1000).getHours()}:00</p>
+                  <p className="text-lg ">{Math.round(h.main.temp)}°</p>
+                  <p className="text-sm  text-gray-500">{h.weather[0].main}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Daily Forecast */}
+          <div className="col-span-2 mt-8">
+            <h4 className="font-semibold text-lg mb-3">5-Day Forecast</h4>
+            <div className="grid grid-cols-5 gap-4">
+              {weather.list
+                .filter((_: any, i: number) => i % 8 === 0)
+                .map((d: any, i: number) => (
+                  <div key={i} className="bg-gray-50 rounded-lg p-3 text-center shadow-sm">
+                    <p className="font-medium">
+                      {new Date(d.dt * 1000).toLocaleDateString("en-US", { weekday: "short" })}
+                    </p>
+                    <p className="text-xl text-lime-500 font-bold">{Math.round(d.main.temp)}°</p>
+                    <p className="text-sm text-gray-500">{d.weather[0].main}</p>
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
-      </section>
-    </main>
+      )}
+    </div>
+    </>
   );
 }
