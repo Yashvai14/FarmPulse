@@ -7,7 +7,13 @@ export default function PredictorPage() {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [language, setLanguage] = useState('en');
-  const [result, setResult] = useState<any>(null);
+  type PredictionResult = {
+    disease: string;
+    confidence: number;
+    remedy: string;
+  };
+
+  const [result, setResult] = useState<PredictionResult | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +29,8 @@ export default function PredictorPage() {
     if (!selectedImage) return;
     setLoading(true);
     const formData = new FormData();
-    formData.append('file', selectedImage);
+    formData.append('image', selectedImage);
     formData.append('language', language);
-
     try {
       const response = await axios.post('http://localhost:8000/predict', formData);
       setResult(response.data);

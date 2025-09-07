@@ -9,8 +9,16 @@ const DynamicMap = dynamic(() => import("@/components/MapComponent"), { ssr: fal
 
 export default function FarmPulse() {
   const [location, setLocation] = useState<{ lat: number; lon: number } | null>(null);
-  const [weather, setWeather] = useState<any>(null);
-  const [soil, setSoil] = useState<any>(null);
+  const [weather, setWeather] = useState<{
+    main?: { temp?: number };
+    weather?: { description?: string }[];
+  } | null>(null);
+  const [soil, setSoil] = useState<{
+    daily?: {
+      soil_temperature_0_to_7cm?: number[];
+      soil_moisture_0_to_7cm?: number[];
+    };
+  } | null>(null);
 
   const WEATHER_API = "969319db1fb8e194b5d514f495cbdb5d"; // replace with your key
 

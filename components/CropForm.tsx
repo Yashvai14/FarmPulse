@@ -1,8 +1,24 @@
 "use client";
 import { useState } from "react";
 
+type FormData = {
+  N: string;
+  P: string;
+  K: string;
+  temperature: string;
+  humidity: string;
+  ph: string;
+  rainfall: string;
+};
+
+type CropResult = {
+  crop?: string;
+  reason?: string;
+  error?: string;
+};
+
 export default function CropForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     N: "",
     P: "",
     K: "",
@@ -11,7 +27,7 @@ export default function CropForm() {
     ph: "",
     rainfall: "",
   });
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<CropResult | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +65,6 @@ export default function CropForm() {
       setLoading(false);
     }
   };
-
   return (
     <div className="flex justify-center items-center  text-black ">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-lg">
@@ -65,7 +80,7 @@ export default function CropForm() {
               <input
                 type="number"
                 name={key}
-                value={(formData as any)[key]}
+                value={formData[key as keyof FormData]}
                 onChange={handleChange}
                 required
                 className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"

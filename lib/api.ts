@@ -1,5 +1,13 @@
 // lib/api.ts
-export async function getCropSuggestion(data: any) {
+interface CropSuggestionData {
+  // Define the expected properties, for example:
+  soilType: string;
+  rainfall: number;
+  temperature: number;
+  // Add other fields as needed
+}
+
+export async function getCropSuggestion(data: CropSuggestionData) {
   const res = await fetch("http://localhost:8000/predict-crop", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
