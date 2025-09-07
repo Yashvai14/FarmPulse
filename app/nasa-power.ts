@@ -39,8 +39,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const json = JSON.parse(text);
     res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
     return res.status(200).json(json);
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('nasa-power proxy error', err);
-    return res.status(500).json({ error: String(err?.message ?? err) });
+    return res.status(500).json({ error: String((err as Error)?.message ?? err) });
   }
 }

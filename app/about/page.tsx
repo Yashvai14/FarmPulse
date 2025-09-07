@@ -5,7 +5,6 @@
     import Footer from '@/components/footer';
     import { Lightbulb, CloudSun, Map, Languages, TrendingUp, CalendarCheck } from 'lucide-react';
 import Cta from '@/components/Cta';
-import { FaQ } from 'react-icons/fa6';
 import FAQSection from '@/components/Faq';
 
     // Reusable Card Component

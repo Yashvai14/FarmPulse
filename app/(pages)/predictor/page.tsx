@@ -34,7 +34,7 @@ export default function PredictorPage() {
     try {
       const response = await axios.post('http://localhost:8000/predict', formData);
       setResult(response.data);
-    } catch (error) {
+    } catch {
       alert('Prediction failed');
     } finally {
       setLoading(false);
