@@ -1,5 +1,11 @@
 fastapi
-uvicorn
+uvicorn[standard]
 pandas
 scikit-learn
 python-dotenv
+requests
+joblib
+pillow
+torch
+torchvision
+python-multipart

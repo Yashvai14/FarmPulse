@@ -1,0 +1,61 @@
+===============================================================
+          QUICK START COMMANDS (COPY & PASTE)
+===============================================================
+
+🚀 IMMEDIATE SOLUTION - Use these commands:
+
+===============================================================
+BACKEND (Terminal 1):
+===============================================================
+cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse\backend"
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python main.py
+
+===============================================================
+FRONTEND (Terminal 2 - NEW WINDOW):
+===============================================================
+cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse"
+npm run dev
+
+===============================================================
+OR USE THESE UPDATED SCRIPTS:
+===============================================================
+
+✅ START_APPLICATION_FIXED.bat  (RECOMMENDED)
+✅ start_backend_FIXED.bat      (Backend only)
+✅ start_backend_FIXED.ps1      (PowerShell version)
+
+===============================================================
+WHAT WAS FIXED:
+===============================================================
+
+❌ Problem: PIL/Pillow not installed in virtual environment
+✅ Solution: Dependencies now properly install in venv
+
+❌ Problem: Virtual environment not activating in scripts
+✅ Solution: Scripts now properly activate venv before running
+
+===============================================================
+VERIFICATION:
+===============================================================
+
+Backend should show:
+✅ Crop suggestion model loaded successfully.
+🚀 Starting FarmPulse API server...
+INFO: Uvicorn running on http://0.0.0.0:8000
+
+Frontend should show:
+▲ Next.js 15.5.2 (Turbopack)
+- Local: http://localhost:3000
+✓ Ready in X.Xs
+
+===============================================================
+ACCESS YOUR APPLICATION:
+===============================================================
+
+🌐 Frontend: http://localhost:3000
+🔧 Backend API: http://localhost:8000
+📚 API Docs: http://localhost:8000/docs
+
+===============================================================

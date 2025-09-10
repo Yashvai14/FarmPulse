@@ -3,7 +3,7 @@ import NavBar from "@/components/navBar";
 
 export default function CropSuggestionPage() {
   return (
-    <main className=" bg-gray-100">
+    <main>
       <NavBar />
       <CropForm />
     </main>

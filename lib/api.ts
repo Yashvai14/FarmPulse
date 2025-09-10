@@ -17,12 +17,25 @@ export async function getCropSuggestion(data: CropSuggestionData) {
 }
 
 export async function detectDisease(files: File[]) {
-  const formData = new FormData();
-  files.forEach(file => formData.append("files", file));
+  try {
+    const formData = new FormData();
+    files.forEach(file => formData.append("files", file));
 
-  const res = await fetch("http://localhost:8000/predict-disease", {
-    method: "POST",
-    body: formData,
-  });
-  return res.json();
+    const res = await fetch("http://localhost:8000/predict-disease", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json().catch(() => ({ detail: `HTTP ${res.status}` }));
+      throw new Error(errorData.detail || `Server error: ${res.status}`);
+    }
+
+    return await res.json();
+  } catch (error) {
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      throw new Error('Cannot connect to backend server. Please ensure the backend is running on port 8000.');
+    }
+    throw error;
+  }
 }

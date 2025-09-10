@@ -1,0 +1,97 @@
+===============================================================
+          FARMPULSE - MANUAL STARTUP COMMANDS
+===============================================================
+
+If automated scripts don't work, use these manual commands:
+
+===============================================================
+OPTION 1: Quick Start (2 Terminals)
+===============================================================
+
+Terminal 1 (Backend):
+cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse\backend"
+python main.py
+
+Terminal 2 (Frontend):
+cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse"
+npm run dev
+
+===============================================================
+OPTION 2: Step-by-Step Setup
+===============================================================
+
+1. INSTALL BACKEND DEPENDENCIES:
+   cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse\backend"
+   pip install -r requirements.txt
+
+2. INSTALL FRONTEND DEPENDENCIES:
+   cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse"
+   npm install
+
+3. START BACKEND SERVER:
+   cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse\backend"
+   python main.py
+
+4. START FRONTEND SERVER (new terminal):
+   cd "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse"
+   npm run dev
+
+===============================================================
+OPTION 3: PowerShell Commands
+===============================================================
+
+Backend (PowerShell):
+Set-Location "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse\backend"
+python main.py
+
+Frontend (New PowerShell Window):
+Set-Location "C:\Users\AdmiN\OneDrive\Desktop\v\farmpulse"
+npm run dev
+
+===============================================================
+ACCESS URLS
+===============================================================
+
+Frontend Application: http://localhost:3000
+Backend API:          http://localhost:8000
+API Documentation:    http://localhost:8000/docs
+
+===============================================================
+TROUBLESHOOTING
+===============================================================
+
+Port Already in Use:
+- Frontend will automatically use port 3001 if 3000 is busy
+- For backend, check if port 8000 is already in use
+
+Python Not Found:
+- Install Python 3.8+ from https://python.org
+- Make sure "Add to PATH" is checked during installation
+- Restart terminal after installation
+
+Node.js Not Found:  
+- Install Node.js 18+ from https://nodejs.org
+- Restart terminal after installation
+
+Dependencies Not Installing:
+- Try: pip install --upgrade pip
+- Try: npm cache clean --force
+- Check internet connection
+
+Application Not Loading:
+- Wait for servers to fully start (watch terminal output)
+- Backend shows "Uvicorn running on http://0.0.0.0:8000"
+- Frontend shows "Ready in X.Xs" message
+
+===============================================================
+FEATURES AVAILABLE
+===============================================================
+
+🌾 AI-Powered Crop Suggestions      (/crop-suggestion)
+🔬 Plant Disease Detection (NEW)    (/disease-prediction)  
+🌤️ Live Weather Forecast (FIXED)   (/weather)
+🗺️ Geo-Mapping for Farmland        (/mapping)
+📈 Market Price Tracker             (/market-price)
+📅 Farming Calendar                  (/farming-calendar)
+
+===============================================================
