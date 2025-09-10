@@ -39,3 +39,87 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+PIPFILE.lock
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+backend/venv/
+backend/env/
+backend/.venv/
+
+# PyTorch and ML Models
+*.pt
+*.pth
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.onnx
+*.pb
+*.tflite
+*.bin
+*.safetensors
+
+# Large data files
+*.csv
+*.json
+*.xml
+*.txt
+# But keep small config files
+!package.json
+!tsconfig.json
+!next.config.*
+!tailwind.config.*
+!postcss.config.*
+!backend/models/disease_classes.json
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+logs/
