@@ -86,21 +86,12 @@ const NavBar = () => {
       icon: <TrendingUp className="w-5 h-5 text-purple-600" />,
       title: "Market Price Tracker"
     },
-    {
-      href: "/farming-calendar",
-      icon: <Calendar className="w-5 h-5 text-red-500" />,
-      title: "Farming Calendar & Reminders"
-    },
+    
     {
       href: "/disease-prediction",
       icon: <Microscope className="w-5 h-5 text-orange-500" />,
       title: "Plant Disease Detection"
     },
-    {
-      href: "/predictor",
-      icon: <Microscope className="w-5 h-5 text-green-500" />,
-      title: "Crop Disease Detector"
-    }
   ];
 
   return (
